@@ -36,9 +36,7 @@ class UsersController {
         var existingUser = UsersService.getSingleUser(id);
  
         if (!existingUser) {
-            let userInfo = req.body;
-            userInfo.id = id;
-            if (UsersService.addUser(userInfo)) {
+            if (UsersService.addUser(req.body)) {
                 res.setHeader('Location', '/users/' + id);
                 res.sendStatus(201);
             } else {
@@ -46,7 +44,6 @@ class UsersController {
             }
         } else {
             if (UsersService.updateUser(id, req.body)) {
-                console.log(req.body);
                 res.sendStatus(204);
             } else {
                 res.sendStatus(404);

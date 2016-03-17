@@ -125,7 +125,7 @@ describe('UsersController', function() {
 		return UsersService.addUser(data);
 	});
 	describe('#putUser(req, res)', function() {
-		it('should return status code 200', function(done) {
+		it('should update existing user - 204', function(done) {
 
 			var user = UsersService.getUsers()[0];
 			var res = getResponse();
@@ -144,6 +144,38 @@ describe('UsersController', function() {
 			res.on('end', function() {
 				var user = UsersService.getUsers()[0];
 				res.statusCode.should.equal(204);
+				user.name.should.equal('nevda');
+				user.email.should.equal('nevdanya@gmail.com');
+
+				done();
+			});
+
+			usersController.putUser(req, res);
+		});
+	});
+});
+
+describe('UsersController', function() {
+	describe('#putUser(req, res)', function() {
+		it('should create a new user - 201', function(done) {
+
+			var user = UsersService.getUsers()[0];
+			var res = getResponse();
+			var req = httpMocks.createRequest({
+				method: 'PUT',
+				url: '/api/users/' + 'blah',
+				params: {
+					id: 'blah'
+				},
+				body: {
+					name: 'nevda',
+					email: 'nevdanya@gmail.com'
+				}
+			});
+
+			res.on('end', function() {
+				var user = UsersService.getUsers()[0];
+				res.statusCode.should.equal(201);
 				user.name.should.equal('nevda');
 				user.email.should.equal('nevdanya@gmail.com');
 

@@ -12,7 +12,7 @@ class UsersService {
     }
  
     addUser(user) {
-        if (!user || this.Users.filter(p => (p.name === user.name && p.email === user.email)).length > 0) {
+        if (!user && this.Users.filter(p => (p.name === user.name && p.email === user.email)).length > 0) {
             return false;
         }
  
