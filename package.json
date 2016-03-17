@@ -23,5 +23,8 @@
   "dependencies": {
     "express": "^4.13.4",
     "node-uuid": "^1.4.7"
+  },
+  "devDependencies": {
+    "mocha": "^2.4.5"
   }
 }
