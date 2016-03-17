@@ -1,8 +1,11 @@
-var app = require('express')();
+var express = require('express');
+var restRouter = express.Router();
 
-app.get('/', function(req, res) {
-	res.send('Hello from Color Memory game');
-});
+var UsersController = require('./controllers/users');
+var usersController = new UsersController(restRouter);
+
+var app = express();
+app.use('/api', restRouter);
 
 var server = app.listen(3000, function() {
 	var host = server.address().address,
