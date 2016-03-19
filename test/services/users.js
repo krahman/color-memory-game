@@ -26,7 +26,7 @@ describe('UsersService', function() {
 	describe('#addUser(user)', function() {
 		it('should add user without error', function(done) {
 			var newUser = UsersService.addUser({name: 'nevda', email: 'khal.rahman@gmail.com'});
-			newUser.should.be.an.Object;
+			newUser.should.be.an.instanceOf(Object);
 			newUser.should.have.property('name');
 			newUser.should.have.property('email');
 
@@ -38,7 +38,7 @@ describe('UsersService', function() {
 	describe('#getSingleUser(userId)', function() {
 		it('should find user by id without error', function(done) {
 			var foundUser = UsersService.getSingleUser(user.id);
-			foundUser.should.be.an.Object;
+			foundUser.should.be.an.instanceOf(Object);
 			foundUser.should.have.property('name');
 			foundUser.should.have.property('email');
 
@@ -63,7 +63,7 @@ describe('UsersService', function() {
 	describe('#getUserByEmail(email)', function() {
 		it('should find user by email without error', function(done) {
 			var foundUser = UsersService.getUserByEmail(user.email);
-			foundUser.should.be.an.Object;
+			foundUser.should.be.an.instanceOf(Object);
 			foundUser.should.have.property('id');
 			foundUser.should.have.property('name');
 			foundUser.should.have.property('email');
