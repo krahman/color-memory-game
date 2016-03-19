@@ -47,7 +47,7 @@ describe('BoardsService', function() {
 		it('should successfully save and return a board object', function(done) {
 			// test case, add board test case
 			var newBoard = board;
-			newBoard.should.be.an.Object;
+			newBoard.should.be.an.instanceOf(Object);
 			newBoard.should.have.property('id');
 			newBoard.should.have.property('boardName');
 			newBoard.should.have.property('rankDirection');
