@@ -4,6 +4,9 @@ var restRouter = express.Router();
 var UsersController = require('./controllers/users');
 var usersController = new UsersController(restRouter);
 
+var BoardsController = require('./controllers/boards');
+var BoardsController = new BoardsController(restRouter);
+
 var app = express();
 app.use('/api', restRouter);
 
