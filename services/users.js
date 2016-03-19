@@ -27,6 +27,12 @@ class UsersService {
  
         return user || null;
     }
+
+    getUserByEmail(email) {
+        var user = this.Users.filter(p => p.email === email)[0];
+
+        return user || null;
+    }
  
     updateUser(userId, data) {
         var user = this.getSingleUser(userId);

@@ -53,3 +53,18 @@ describe('UsersService', function() {
 		});
 	});
 });
+
+describe('UsersService', function() {
+	beforeEach(function() {
+		var data = {name: 'khal', email: 'khal.rahman@gmail.com'};
+		return UsersService.addUser(data);
+	});
+	describe('#getSingleUser(email)', function() {
+		it('should find user by email without error', function(done) {
+			var foundUser = UsersService.getUserByEmail(UsersService.getUsers()[0].email);
+			if (!foundUser || foundUser == null)
+				throw err;
+			done();
+		});
+	});
+});
