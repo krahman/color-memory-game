@@ -5,7 +5,10 @@ var UsersController = require('./controllers/users');
 var usersController = new UsersController(restRouter);
 
 var BoardsController = require('./controllers/boards');
-var BoardsController = new BoardsController(restRouter);
+var boardsController = new BoardsController(restRouter);
+
+var ScoresController = require('./controllers/scores');
+var scoresController = new ScoresController(restRouter);
 
 var app = express();
 app.use('/api', restRouter);

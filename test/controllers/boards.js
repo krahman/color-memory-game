@@ -32,7 +32,7 @@ describe('BoardsController', function() {
 	});
 
 	describe('#getBoards()', function() {
-		it('should return 200 OK', function(done) {
+		it('should return 200 OK, return an array size of 1', function(done) {
 
 			var res = getResponse();
 			var req = httpMocks.createRequest({
@@ -41,7 +41,12 @@ describe('BoardsController', function() {
 			});
 
 			res.on('end', function() {
+				var data = res._getData();
+
 				res.statusCode.should.equal(200);
+				data.should.be.an.instanceOf(Array);
+				data.length.should.equal(1);
+
 				done();
 			});
 

@@ -27,6 +27,20 @@ describe('ScoresService', function() {
 		});
 	});
 
+	describe('#isBetter(newScore, oldScore, direction)', function() {
+		it('should return "newScore > oldScore" if direction is 1', function(done) {
+			ScoresService.isBetter(1000, 100, 1).should.equal(true);
+			ScoresService.isBetter(100, 1000, 1).should.equal(false);
+			done();
+		});
+		it('should return "newScore < oldScore" if direction is 0', function(done) {
+			ScoresService.isBetter(1000, 100, 0).should.equal(false);
+			ScoresService.isBetter(100, 1000, 0).should.equal(true);
+			
+			done();
+		});
+	});
+
 	describe('#getScores(boardId)', function() {
 		it('should return an array of scores', function(done) {
 			ScoresService.getScores.should.be.an.instanceOf(Function);

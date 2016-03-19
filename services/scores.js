@@ -30,24 +30,24 @@ class ScoresService {
         return results.sort((a, b) => this.isBetter(b.score, a.score, board.rankDirection));
     }
  
-    addScore(boardId, playerId, score) {
+    addScore(boardId, userId, score) {
         var board = BoardsService.getSingleBoard(boardId);
         if (!board) {
             console.log('addScore: can\'t find board: ', boardId);
             return false;
         }
  
-        var scoreObj = {score: score, submitted: new Date(), playerId: playerId};
+        var scoreObj = {score: score, submitted: new Date(), userId: userId};
         if (!this.scores.has(board.id)) {
             this.scores.set(board.id, new Map());
-            this.scores.get(board.id).set(playerId, scoreObj);
+            this.scores.get(board.id).set(userId, scoreObj);
         } else {
-            if (this.scores.get(board.id).has(playerId)) {
-                if (this.isBetter(score, this.scores.get(board.id).get(playerId).score, board.rankDirection)) {
-                    this.scores.get(board.id).set(playerId, scoreObj);
+            if (this.scores.get(board.id).has(userId)) {
+                if (this.isBetter(score, this.scores.get(board.id).get(userId).score, board.rankDirection)) {
+                    this.scores.get(board.id).set(userId, scoreObj);
                 }
             } else {
-                this.scores.get(board.id).set(playerId, scoreObj);
+                this.scores.get(board.id).set(userId, scoreObj);
             }
         }
  
