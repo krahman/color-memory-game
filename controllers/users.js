@@ -1,40 +1,41 @@
 'use strict';
- 
+
+
 var UsersService = require('../services/users');
- 
-class UsersController {
-    constructor(router) {
+
+var UsersController = function () {
+    function UsersController(router) {
         this.router = router;
         this.registerRoutes();
     }
- 
-    registerRoutes() {
+
+    UsersController.prototype.registerRoutes = function registerRoutes() {
         this.router.get('/users', this.getUsers.bind(this));
         this.router.get('/users/:id', this.getSingleUser.bind(this));
         this.router.post('/users', this.postUser.bind(this));
         this.router.put('/users/:id', this.putUser.bind(this));
-    }
- 
-    getUsers(req, res) {
+    };
+
+    UsersController.prototype.getUsers = function getUsers(req, res) {
         var users = UsersService.getUsers();
         res.send(users);
-    }
- 
-    getSingleUser(req, res) {
+    };
+
+    UsersController.prototype.getSingleUser = function getSingleUser(req, res) {
         var id = req.params.id;
         var user = UsersService.getSingleUser(id);
- 
+
         if (!user) {
             res.sendStatus(404);
         } else {
             res.send(user);
         }
-    }
- 
-    putUser(req, res) {
+    };
+
+    UsersController.prototype.putUser = function putUser(req, res) {
         var id = req.params.id;
         var existingUser = UsersService.getSingleUser(id);
- 
+
         if (!existingUser) {
             if (UsersService.addUser(req.body)) {
                 res.setHeader('Location', '/users/' + id);
@@ -49,18 +50,20 @@ class UsersController {
                 res.sendStatus(404);
             }
         }
-    }
- 
-    postUser(req, res) {
+    };
+
+    UsersController.prototype.postUser = function postUser(req, res) {
         var userInfo = req.body;
- 
+
         if (UsersService.addUser(userInfo)) {
             res.setHeader('Location', '/users/' + userInfo.id);
             res.sendStatus(200);
         } else {
             res.sendStatus(500);
         }
-    }
-}
+    };
+
+    return UsersController;
+}();
 
 module.exports = UsersController;

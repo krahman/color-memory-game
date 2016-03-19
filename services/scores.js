@@ -1,43 +1,61 @@
 'use strict';
- 
+
 var BoardsService = require('./boards');
- 
-class ScoresService {
-    constructor() {
+
+var ScoresService = function () {
+    function ScoresService() {
         this.scores = new Map();
     }
- 
-    isBetter(newScore, oldScore, direction) {
-        if (direction === 1) { // higher is better
-            return (newScore > oldScore);
+
+    ScoresService.prototype.isBetter = function isBetter(newScore, oldScore, direction) {
+        if (direction === 1) {
+            // higher is better
+            return newScore > oldScore;
         } else {
-            return (newScore < oldScore);
+            return newScore < oldScore;
         }
-    }
- 
-    getScores(boardId) {
+    };
+
+    ScoresService.prototype.getScores = function getScores(boardId) {
+        var _this = this;
+
         var board = BoardsService.getSingleBoard(boardId);
         if (!board || !this.scores.has(board.id)) {
-            console.log('board not found! ' + boardId)
+            console.log('board not found! ' + boardId);
             return [];
         }
- 
-        let results = [];
-        for (let score of this.scores.get(board.id).values()) {
+
+        var results = [];
+        for (var _iterator = this.scores.get(board.id).values(), _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
+            var _ref;
+
+            if (_isArray) {
+                if (_i >= _iterator.length) break;
+                _ref = _iterator[_i++];
+            } else {
+                _i = _iterator.next();
+                if (_i.done) break;
+                _ref = _i.value;
+            }
+
+            var score = _ref;
+
             results.push(score);
         }
- 
-        return results.sort((a, b) => this.isBetter(b.score, a.score, board.rankDirection));
-    }
- 
-    addScore(boardId, userId, score) {
+
+        return results.sort(function (a, b) {
+            return _this.isBetter(b.score, a.score, board.rankDirection);
+        });
+    };
+
+    ScoresService.prototype.addScore = function addScore(boardId, userId, score) {
         var board = BoardsService.getSingleBoard(boardId);
         if (!board) {
             console.log('addScore: can\'t find board: ', boardId);
             return false;
         }
- 
-        var scoreObj = {score: score, submitted: new Date(), userId: userId};
+
+        var scoreObj = { score: score, submitted: new Date(), userId: userId };
         if (!this.scores.has(board.id)) {
             this.scores.set(board.id, new Map());
             this.scores.get(board.id).set(userId, scoreObj);
@@ -50,9 +68,11 @@ class ScoresService {
                 this.scores.get(board.id).set(userId, scoreObj);
             }
         }
- 
+
         return true;
-    }
-}
- 
+    };
+
+    return ScoresService;
+}();
+
 module.exports = new ScoresService();

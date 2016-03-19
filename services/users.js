@@ -1,50 +1,58 @@
 'use strict';
- 
+
 var uuid = require('node-uuid');
- 
-class UsersService {
-    constructor() {
+
+var UsersService = function () {
+    function UsersService() {
+
         this.users = [];
     }
- 
-    getUsers() {
+
+    UsersService.prototype.getUsers = function getUsers() {
         return this.users;
-    }
- 
-    addUser(user) {
-        if (!user && this.users.filter(p => (p.name === user.name && p.email === user.email)).length > 0) {
+    };
+
+    UsersService.prototype.addUser = function addUser(user) {
+        if (!user && this.users.filter(function (p) {
+            return p.name === user.name && p.email === user.email;
+        }).length > 0) {
             return false;
         }
- 
+
         user.id = uuid.v4();
- 
+
         this.users.push(user);
         return user;
-    }
+    };
 
-    getSingleUser(userId) {
-        var user = this.users.filter(p => p.id === userId)[0];
- 
-        return user || null;
-    }
-
-    getUserByEmail(email) {
-        var user = this.users.filter(p => p.email === email)[0];
+    UsersService.prototype.getSingleUser = function getSingleUser(userId) {
+        var user = this.users.filter(function (p) {
+            return p.id === userId;
+        })[0];
 
         return user || null;
-    }
- 
-    updateUser(userId, data) {
+    };
+
+    UsersService.prototype.getUserByEmail = function getUserByEmail(email) {
+        var user = this.users.filter(function (p) {
+            return p.email === email;
+        })[0];
+
+        return user || null;
+    };
+
+    UsersService.prototype.updateUser = function updateUser(userId, data) {
         var user = this.getSingleUser(userId);
         if (user) {
             user.name = data.name ? data.name : user.name;
             user.email = data.email ? data.email : user.email;
- 
+
             return user;
         }
         return false;
-    }
+    };
 
-}
- 
+    return UsersService;
+}();
+
 module.exports = new UsersService();

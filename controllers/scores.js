@@ -1,30 +1,33 @@
 'use strict';
- 
+
+
 var ScoresService = require('../services/scores');
- 
-class ScoresController {
-    constructor(router) {
+
+var ScoresController = function () {
+    function ScoresController(router) {
         this.router = router;
         this.registerRoutes();
     }
- 
-    registerRoutes() {
+
+    ScoresController.prototype.registerRoutes = function registerRoutes() {
         this.router.get('/leaderboards/:leaderboardId/scores', this.getScores.bind(this));
         this.router.post('/leaderboards/:leaderboardId/scores', this.submitScore.bind(this));
-    }
- 
-    getScores(req, res) {
+    };
+
+    ScoresController.prototype.getScores = function getScores(req, res) {
         var boardId = req.params.leaderboardId;
         var scores = ScoresService.getScores(boardId);
         res.send(scores);
-    }
- 
-    submitScore(req, res) {
+    };
+
+    ScoresController.prototype.submitScore = function submitScore(req, res) {
         var boardId = req.params.leaderboardId;
         ScoresService.addScore(boardId, req.body.userId, req.body.score);
- 
+
         res.sendStatus(200);
-    }
-}
- 
+    };
+
+    return ScoresController;
+}();
+
 module.exports = ScoresController;
