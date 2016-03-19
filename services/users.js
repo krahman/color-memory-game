@@ -4,32 +4,32 @@ var uuid = require('node-uuid');
  
 class UsersService {
     constructor() {
-        this.Users = [];
+        this.users = [];
     }
  
     getUsers() {
-        return this.Users;
+        return this.users;
     }
  
     addUser(user) {
-        if (!user && this.Users.filter(p => (p.name === user.name && p.email === user.email)).length > 0) {
+        if (!user && this.users.filter(p => (p.name === user.name && p.email === user.email)).length > 0) {
             return false;
         }
  
         user.id = uuid.v4();
  
-        this.Users.push(user);
-        return true;
+        this.users.push(user);
+        return user;
     }
 
     getSingleUser(userId) {
-        var user = this.Users.filter(p => p.id === userId)[0];
+        var user = this.users.filter(p => p.id === userId)[0];
  
         return user || null;
     }
 
     getUserByEmail(email) {
-        var user = this.Users.filter(p => p.email === email)[0];
+        var user = this.users.filter(p => p.email === email)[0];
 
         return user || null;
     }
@@ -40,7 +40,7 @@ class UsersService {
             user.name = data.name ? data.name : user.name;
             user.email = data.email ? data.email : user.email;
  
-            return true;
+            return user;
         }
         return false;
     }
