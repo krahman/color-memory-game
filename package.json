@@ -25,8 +25,15 @@
     "node-uuid": "^1.4.7"
   },
   "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-jshint": "^2.0.0",
+    "gulp-mocha": "^2.2.0",
+    "gulp-util": "^3.0.7",
+    "jshint": "^2.9.1",
+    "jshint-stylish": "^2.1.0",
     "mocha": "^2.4.5",
     "node-mocks-http": "^1.5.2",
+    "run-sequence": "^1.1.5",
     "should": "^8.2.2"
   }
 }
