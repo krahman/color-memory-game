@@ -1,50 +1,53 @@
-'use strict';
+(function() {
+    'use strict';
 
-var uuid = require('node-uuid');
+    var uuid = require('node-uuid');
 
-var LeaderBoardService = function () {
-    function LeaderBoardService() {
-        this.boards = [];
-    }
-
-    LeaderBoardService.prototype.getBoards = function getBoards() {
-        return this.boards;
-    };
-
-    LeaderBoardService.prototype.getSingleBoard = function getSingleBoard(boardId) {
-        return this.boards.filter(function (b) {
-            return b.id === boardId;
-        })[0] || null;
-    };
-
-    LeaderBoardService.prototype.addBoard = function addBoard(boardName, rankDirection) {
-        var existingBoard = this.boards.filter(function (b) {
-            return b.boardName === boardName;
-        }).length;
-        if (existingBoard) {
-            return null;
+    var LeaderBoardService = function () {
+        function LeaderBoardService() {
+            this.boards = [];
         }
 
-        var board = { boardName: boardName, rankDirection: rankDirection };
-        board.id = uuid.v4();
+        LeaderBoardService.prototype.getBoards = function getBoards() {
+            return this.boards;
+        };
 
-        this.boards.push(board);
+        LeaderBoardService.prototype.getSingleBoard = function getSingleBoard(boardId) {
+            return this.boards.filter(function (b) {
+                return b.id === boardId;
+            })[0] || null;
+        };
 
-        return board;
-    };
+        LeaderBoardService.prototype.addBoard = function addBoard(boardName, rankDirection) {
+            var existingBoard = this.boards.filter(function (b) {
+                return b.boardName === boardName;
+            }).length;
+            if (existingBoard) {
+                return null;
+            }
 
-    LeaderBoardService.prototype.updateBoard = function updateBoard(boardId, info) {
-        var board = this.getSingleBoard(boardId);
-        if (board) {
-            board.boardName = info.boardName ? info.boardName : board.boardName;
-            board.rankDirection = info.rankDirection ? info.rankDirection : board.rankDirection;
+            var board = { boardName: boardName, rankDirection: rankDirection };
+            board.id = uuid.v4();
 
-            return true;
-        }
-        return false;
-    };
+            this.boards.push(board);
 
-    return LeaderBoardService;
-}();
+            return board;
+        };
 
-module.exports = new LeaderBoardService();
+        LeaderBoardService.prototype.updateBoard = function updateBoard(boardId, info) {
+            var board = this.getSingleBoard(boardId);
+            if (board) {
+                board.boardName = info.boardName ? info.boardName : board.boardName;
+                board.rankDirection = info.rankDirection ? info.rankDirection : board.rankDirection;
+
+                return true;
+            }
+            return false;
+        };
+
+        return LeaderBoardService;
+    }();
+
+    module.exports = new LeaderBoardService();
+
+})();

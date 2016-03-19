@@ -6,7 +6,7 @@ var runSequence = require('run-sequence');
 
 // linting task runner
 gulp.task('lint', function() {
-	return gulp.src(['test/**/*.js', 'server.js', 'gulpfile.js', 'modules/*.js'])
+	return gulp.src(['test/**/*.js', 'server.js', 'gulpfile.js', 'modules/*.js', 'controllers/*.js', 'services/*.js'])
 		.pipe(jshint())
 		.pipe(jshint.reporter('jshint-stylish'));
 });
