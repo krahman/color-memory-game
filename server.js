@@ -13,6 +13,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/api', restRouter);
 app.use(express.static(__dirname + '/public'));
+app.use('/bower_components', express.static(__dirname + '/bower_components'));
 app.use(methodOverride());
 
 var UsersController = require('./controllers/users');
@@ -41,5 +42,5 @@ mongoose.connect("mongodb://localhost/ColorMemoryApp");
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
-  	console.log('Connected to mongodb');
+	console.log('Connected to mongodb');
 });

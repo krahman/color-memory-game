@@ -1,0 +1,31 @@
+{
+  "name": "color-memory-game",
+  "description": "color memory game",
+  "main": "public/app.js",
+  "authors": [
+    "khal"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "color",
+    "memory"
+  ],
+  "homepage": "https://github.com/krahman/color-memory-game",
+  "moduleType": [
+    "amd"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "angularjs#~1.5.2",
+    "restangular": "1.5.2",
+    "angular-bootstrap": "1.2.4",
+    "lodash": "4.6.1",
+    "bootstrap": "3.3.6"
+  }
+}

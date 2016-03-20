@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node node_modules/gulp/bin/gulp && node server.js",
-    "test": "node node_modules/gulp/bin/gulp test"
+    "test": "node node_modules/gulp/bin/gulp test",
+    "postinstall": "node node_modules/bower/bin/bower install"
   },
   "repository": {
     "type": "git",
@@ -22,24 +23,25 @@
   },
   "homepage": "https://github.com/krahman/color-memory-game#readme",
   "dependencies": {
-    "body-parser": "^1.15.0",
-    "express": "^4.13.4",
-    "method-override": "^2.3.5",
-    "mongoose": "^4.4.8",
-    "morgan": "^1.7.0",
-    "node-uuid": "^1.4.7"
+    "body-parser": "1.15.0",
+    "express": "4.13.4",
+    "method-override": "2.3.5",
+    "mongoose": "4.4.8",
+    "morgan": "1.7.0",
+    "node-uuid": "1.4.7"
   },
   "devDependencies": {
-    "gulp": "^3.9.1",
-    "gulp-jshint": "^2.0.0",
-    "gulp-mocha": "^2.2.0",
-    "gulp-nodemon": "^2.0.6",
-    "gulp-util": "^3.0.7",
-    "jshint": "^2.9.1",
-    "jshint-stylish": "^2.1.0",
-    "mocha": "^2.4.5",
-    "node-mocks-http": "^1.5.2",
-    "run-sequence": "^1.1.5",
-    "should": "^8.2.2"
+    "bower": "1.7.7",
+    "gulp": "3.9.1",
+    "gulp-jshint": "2.0.0",
+    "gulp-mocha": "2.2.0",
+    "gulp-nodemon": "2.0.6",
+    "gulp-util": "3.0.7",
+    "jshint": "2.9.1",
+    "jshint-stylish": "2.1.0",
+    "mocha": "2.4.5",
+    "node-mocks-http": "1.5.2",
+    "run-sequence": "1.1.5",
+    "should": "8.2.2"
   }
 }

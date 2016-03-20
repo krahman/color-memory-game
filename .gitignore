@@ -1,2 +1,8 @@
+# Ignore node modules folder
 node_modules
+
+# Ignore logs
 *.log
+
+# Ignore bower components
+bower_components

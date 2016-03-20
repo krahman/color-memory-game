@@ -15,8 +15,8 @@
 			return httpMocks.createResponse({eventEmitter: require('events').EventEmitter});
 		};
 
-		var score = null, 
-			board = null, 
+		var score = null,
+			board = null,
 			user = null;
 
 		var userInfo = {name: 'khal', email: 'khal.rahman@gmail.com'};
