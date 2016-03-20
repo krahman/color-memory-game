@@ -8,8 +8,7 @@
   },
   "scripts": {
     "start": "node node_modules/gulp/bin/gulp && node server.js",
-    "test": "node node_modules/gulp/bin/gulp test",
-    "postinstall": "node_modules/.bin/bower install"
+    "test": "node node_modules/gulp/bin/gulp test"
   },
   "repository": {
     "type": "git",
