@@ -40,14 +40,32 @@
 		<div class="container">
 			
 			<div class="row">
-				<div class="col-md-4"></div>
+				<div class="col-md-4 pull-left" ng-controller="UsersCtrl" ng-init="getUsers()">
+					<ul class="list-group">
+						<li class="list-group-item active">
+							Players
+						</li>
+						<li class="list-group-item" ng-repeat="user in users">{{user.username}}</li>
+					</ul>
+				</div>
 				<color-board rows="4" cols="4"></color-board>
-				<div class="col-md-4">
+				<div >
+				</div>
+				<div class="col-md-4" ng-controller="ScoresCtrl" ng-init="getScores()">
+					<ul class="list-group">
+						<li class="list-group-item active">
+							Scores
+						</li>
+						<li class="list-group-item" ng-repeat="s in scores">
+							<span class="badge">{{s.score}}</span>
+							{{s.username}}
+						</li>
+					</ul>
 				</div>
 			</div>
 
-			<div ng-controller="UsersCtrl" ng-init="getUsers()"></div>
-			<div ng-controller="ScoresCtrl" ng-init="getScores()"></div>
+			
+			
 
 
 			<script src="/bower_components/jquery/dist/jquery.min.js" ></script>
