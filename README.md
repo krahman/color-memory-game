@@ -2,13 +2,11 @@ Color Memory Game
 ==============================
 http://color-memory.herokuapp.com/
 
-An example chat app using nodejs express, sockjs, angularjs
-
 ## Getting started
 
 1. Clone this project
 ```
-https://github.com/krahman/color-memory-game
+git@github.com:krahman/color-memory-game.git
 ```
 2. Go to project color-memory-game folder
 ```
