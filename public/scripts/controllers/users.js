@@ -2,15 +2,22 @@
 	'use strict';
 
 	angular
-		.modules('contollers')
-		.controller('UsersCtrl', usersCtrl);
+		.module('contollers')
+		.controller('UsersCtrl', UsersCtrl);
 
-	usersCtrl.$inject = ['$scope'];
+	UsersCtrl.$inject = ['$scope', 'usersServices'];
 
-	function usersCtrl($scope) {
+	function UsersCtrl($scope, usersServices) {
 		
-		$scope.getUsers = function() {
+		$scope.users = [];
 
+		$scope.getUsers = function() {
+			console.log('test');
+			usersServices
+				.getList()
+				.then(function(users) {
+					$scope.users = users;
+				});
 		};
 
 		$scope.getSingleUser = function(username) {
@@ -24,6 +31,8 @@
 		$scope.updateUser = function(username, userInfo) {
 
 		};
+
+
 	}
 
 })();

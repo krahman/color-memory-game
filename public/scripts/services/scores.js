@@ -4,20 +4,11 @@
 	angular.module('services')
 		.factory('scoresServices', scoresServices);
 
-	function scoresServices () {
-		return {
-			getScores: function() {
+	scoresServices.$inject = ['Restangular'];
 
-			},
-			getMyBestScores: function(username) {
-
-			},
-			getMyScores: function(username) {
-
-			},
-			submitScore: function(username, score) {
-
-			}
-		};
+	function scoresServices (Restangular) {
+		var service = Restangular.service('scores');
+		
+		return service;
 	}
 })();

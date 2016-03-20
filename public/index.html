@@ -1,16 +1,27 @@
 <html>
 	<head>
+		<intercept-url pattern="/favicon.ico" access="ROLE_ANONYMOUS" />
 		<link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 	</head>
-	<body>
+	<body ng-app="colorMemoryApp">
 		<div class="container">
 			<h1>color memory</h1>
+			<div ng-controller="UsersCtrl" ng-init="getUsers()"></div>
+			<div ng-controller="ScoresCtrl" ng-init="getScores()"></div>
 			<script src="/bower_components/jquery/dist/jquery.min.js" ></script>
-			<script src="/bower_components/angular/angular.min.js" ></script>
+			<script src="/bower_components/angular/angular.js" ></script>
 			<script src="/bower_components/restangular/dist/restangular.min.js" ></script>
 			<script src="/bower_components/lodash/dist/lodash.min.js" ></script>
 			<script src="/bower_components/bootstrap/dist/js/bootstrap.min.js" ></script>
 			<script src="/bower_components/angular-bootstrap/ui-bootstrap.min.js" ></script>
+
+			<script src="/app.js"></script>
+			<script src="/scripts/services/module.js"></script>
+			<script src="/scripts/services/users.js"></script>
+			<script src="/scripts/services/scores.js"></script>
+			<script src="/scripts/controllers/module.js"></script>
+			<script src="/scripts/controllers/users.js"></script>
+			<script src="/scripts/controllers/scores.js"></script>
 		</div>
 	</body>
 </html>

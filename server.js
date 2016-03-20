@@ -13,6 +13,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/api', restRouter);
 app.use(express.static(__dirname + '/public'));
+app.use('/scripts', express.static(__dirname + '/public/scripts'));
 app.use('/bower_components', express.static(__dirname + '/bower_components'));
 app.use(methodOverride());
 
@@ -27,7 +28,7 @@ app.use(function(err, req, res, next) {
 });
 
 // App listener
-var server = app.listen(3000, function() {
+var server = app.listen(8080, function() {
 	var host = server.address().address,
 		port = server.address().port;
 

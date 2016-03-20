@@ -1,5 +1,5 @@
 (function() {
 	'use strict';
 
-	angular.modules('contollers', []);
+	angular.module('contollers', []);
 })();

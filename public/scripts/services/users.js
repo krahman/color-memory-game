@@ -4,20 +4,11 @@
 	angular.module('services')
 		.factory('usersServices', usersServices);
 
-	function usersServices () {
-		return {
-			getUsers: function() {
+	usersServices.$inject = ['Restangular'];
 
-			},
-			getSingleUser: function(username) {
+	function usersServices (Restangular) {
+		var service = Restangular.service("users");
 
-			},
-			updateUser: function(username, userInfo) {
-
-			},
-			addUser: function(userInfo) {
-
-			}
-		};
+		return service;
 	}
 })();

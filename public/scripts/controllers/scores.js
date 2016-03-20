@@ -2,15 +2,21 @@
 	'use strict';
 
 	angular
-		.modules('contollers')
-		.controller('ScoresCtrl', scoresCtrl);
+		.module('contollers')
+		.controller('ScoresCtrl', ScoresCtrl);
 
-	scoresCtrl.$inject = ['$scope'];
+	ScoresCtrl.$inject = ['$scope', 'scoresServices'];
 
-	function scoresCtrl($scope) {
+	function ScoresCtrl($scope, scoresServices) {
 		
-		$scope.getScores = function() {
+		$scope.scores = [];
 
+		$scope.getScores = function() {
+			scoresServices
+				.getList()
+				.then(function(scores) {
+					$scope.scores = scores;
+				});
 		};
 
 		$scope.getMyScores = function(username) {
