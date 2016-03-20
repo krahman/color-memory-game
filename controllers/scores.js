@@ -1,7 +1,6 @@
 (function() {
     'use strict';
 
-    var ScoresService = require('../services/scores');
     var Score = require('../models/score');
     var User = require('../models/user');
 

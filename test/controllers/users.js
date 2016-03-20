@@ -1,6 +1,5 @@
 var express = require('express');
 var restRouter = express.Router();
-var UsersService = require('../../services/users');
 var UsersController = require('../../controllers/users');
 var usersController = new UsersController(restRouter);
 var httpMocks = require('node-mocks-http');
@@ -111,7 +110,6 @@ describe('UsersController', function() {
 			});
 
 			res.on('end', function() {
-				var user = UsersService.getUsers()[0];
 				res.statusCode.should.equal(200);
 				user.username.should.equal('khal');
 				user.email.should.equal('khal.rahman@gmail.com');
@@ -128,12 +126,10 @@ describe('UsersController', function() {
 	before(function() {
 		// add test data
 		var data = {username: 'khal', email: 'khal.rahman@gmail.com'};
-		return UsersService.addUser(data);
 	});
 	describe('#putUser(req, res)', function() {
 		it('should update existing user - 204', function(done) {
 
-			var user = UsersService.getUsers()[0];
 			var res = getResponse();
 			var req = httpMocks.createRequest({
 				method: 'PUT',
@@ -148,7 +144,6 @@ describe('UsersController', function() {
 			});
 
 			res.on('end', function() {
-				var user = UsersService.getUsers()[0];
 				res.statusCode.should.equal(204);
 				user.username.should.equal('nevda');
 				user.email.should.equal('nevdanya@gmail.com');
@@ -165,7 +160,6 @@ describe('UsersController', function() {
 	describe('#putUser(req, res)', function() {
 		it('should create a new user - 201', function(done) {
 
-			var user = UsersService.getUsers()[0];
 			var res = getResponse();
 			var req = httpMocks.createRequest({
 				method: 'PUT',
@@ -180,7 +174,6 @@ describe('UsersController', function() {
 			});
 
 			res.on('end', function() {
-				var user = UsersService.getUsers()[0];
 				res.statusCode.should.equal(201);
 				user.username.should.equal('nevda');
 				user.email.should.equal('nevdanya@gmail.com');

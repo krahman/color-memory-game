@@ -18,9 +18,6 @@ app.use(methodOverride());
 var UsersController = require('./controllers/users');
 var usersController = new UsersController(restRouter);
 
-var BoardsController = require('./controllers/boards');
-var boardsController = new BoardsController(restRouter);
-
 var ScoresController = require('./controllers/scores');
 var scoresController = new ScoresController(restRouter);
 

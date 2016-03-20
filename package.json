@@ -4,7 +4,7 @@
   "description": "color memory game",
   "main": "server.js",
   "scripts": {
-    "start": "node node_modules/gulp/bin/gulp.js && node server.js",
+    "start": "node node_modules/gulp/bin/gulp && node server.js",
     "test": "node node_modules/gulp/bin/gulp test"
   },
   "repository": {

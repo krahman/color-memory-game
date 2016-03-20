@@ -3,9 +3,6 @@
 
 	var express = require('express');
 	var restRouter = express.Router();
-	var ScoresService = require('../../services/scores');
-	var BoardsService = require('../../services/boards');
-	var UsersService = require('../../services/users');
 	var ScoresController = require('../../controllers/scores');
 	var scoresController = new ScoresController(restRouter);
 	var httpMocks = require('node-mocks-http');
@@ -27,9 +24,6 @@
 		beforeEach(function() {
 			user = UsersService.addUser(userInfo);
 			board = BoardsService.addBoard('score', 1);
-			
-			ScoresService.addScore(board.id, user.id, 100);
-			console.log(ScoresService.getScores(board.id).length);
 		});
 
 		describe('#getScores(req, res)', function() {
@@ -85,7 +79,6 @@
 		afterEach(function() {
 			UsersService.users = [];
 			BoardsService.boards = [];
-			ScoresService.scores = new Map();
 		});
 	});
 

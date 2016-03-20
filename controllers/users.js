@@ -1,7 +1,6 @@
 (function() {
     'use strict';
 
-    var UsersService = require('../services/users');
     var User = require('../models/user');
 
     var UsersController = function () {

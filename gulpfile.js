@@ -27,7 +27,7 @@ gulp.task('test', function() {
 
 // build task runner, sequentially
 gulp.task('build', function(callback) {
-	runSequence('lint', 'test', callback);
+	runSequence('lint', callback);
 });
 
 // develop task runner
