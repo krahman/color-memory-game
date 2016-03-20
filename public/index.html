@@ -2,12 +2,22 @@
 	<head>
 		<intercept-url pattern="/favicon.ico" access="ROLE_ANONYMOUS" />
 		<link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+		<link href="/styles/main.css" rel="stylesheet">
 	</head>
 	<body ng-app="colorMemoryApp">
 		<div class="container">
 			<h1>color memory</h1>
+			<div class="row">
+				<div class="col-md-4"></div>
+				<color-board rows="4" cols="4"></color-board>
+				<div class="col-md-4">
+				</div>
+			</div>
+
 			<div ng-controller="UsersCtrl" ng-init="getUsers()"></div>
 			<div ng-controller="ScoresCtrl" ng-init="getScores()"></div>
+
+
 			<script src="/bower_components/jquery/dist/jquery.min.js" ></script>
 			<script src="/bower_components/angular/angular.js" ></script>
 			<script src="/bower_components/restangular/dist/restangular.min.js" ></script>
@@ -24,6 +34,8 @@
 			<script src="/scripts/controllers/mailer.js"></script>
 			<script src="/scripts/controllers/users.js"></script>
 			<script src="/scripts/controllers/scores.js"></script>
+			<script src="/scripts/directives/module.js"></script>
+			<script src="/scripts/directives/board.js"></script>
 		</div>
 	</body>
 </html>

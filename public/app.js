@@ -1,7 +1,7 @@
 (function() {
 	'use strict';
 
-	angular.module('colorMemoryApp', ['restangular', 'ui.bootstrap', 'contollers', 'services'])
+	angular.module('colorMemoryApp', ['restangular', 'ui.bootstrap', 'contollers', 'services', 'directives'])
 		.config(function(RestangularProvider) {
 			var restUrl = "";
 			if (window.location.hostname === 'localhost') {
