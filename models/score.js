@@ -1,14 +1,14 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var UserSchema = new Schema({
+var ScoreSchema = new Schema ({
 	username: {type: String, required: true},
-	email: {type: String, required: true},
+	score: {type: Number, required: true},
 	created_at: {type: Date, default: Date.now},
 	updated_at: {type: Date, default: Date.now}
 });
 
-UserSchema.pre('save', function(next) {
+ScoreSchema.pre('save', function(next) {
 	var now = new Date();
 	this.updated_at = now;
 	if (!this.created_at) {
@@ -18,7 +18,6 @@ UserSchema.pre('save', function(next) {
 	next();
 });
 
-UserSchema.index({location: '2dsphere'});
+ScoreSchema.index({location: '2dsphere'});
 
-
-module.exports = mongoose.model('user', UserSchema);
+module.exports = mongoose.model('score', ScoreSchema);

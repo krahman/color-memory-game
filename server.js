@@ -1,6 +1,19 @@
 var mongoose = require('mongoose');
 var express = require('express');
+var morgan = require('morgan');
+var bodyParser = require('body-parser');
+var methodOverride = require('method-override');
 var restRouter = express.Router();
+var fs = require('fs');
+var accesslogStream = fs.createWriteStream(__dirname + '/access.log', {flags: 'a'});
+var app = express();
+
+app.use(morgan('combined', {stream: accesslogStream}));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use('/api', restRouter);
+app.use(express.static(__dirname + '/public'));
+app.use(methodOverride());
 
 var UsersController = require('./controllers/users');
 var usersController = new UsersController(restRouter);
@@ -11,11 +24,9 @@ var boardsController = new BoardsController(restRouter);
 var ScoresController = require('./controllers/scores');
 var scoresController = new ScoresController(restRouter);
 
-var app = express();
-
-app.use('/api', restRouter);
-
-app.use(express.static(__dirname + '/public'));
+app.use(function(err, req, res, next) {
+	return res.sendStatus(500);
+});
 
 // App listener
 var server = app.listen(3000, function() {

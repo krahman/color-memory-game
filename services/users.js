@@ -1,7 +1,8 @@
 (function() {
     'use strict';
 
-    var uuid = require('node-uuid');
+    var mongoose = require('mongoose');
+    var User = require('../models/user');
     
     var UsersService = function () {
         function UsersService() {
@@ -9,47 +10,53 @@
         }
 
         UsersService.prototype.getUsers = function getUsers() {
-            return this.users;
+            var self = this;
+            User.find({}, function(err, users) {
+                if (err)
+                    throw err;
+
+                self.users = users;
+            });
+            return self.users;
         };
 
         UsersService.prototype.addUser = function addUser(user) {
-            if (!user && this.users.filter(function (p) {
-                return p.name === user.name && p.email === user.email;
-            }).length > 0) {
-                return false;
-            }
+            var self = this;
+            User.findOne({email: user.email}, function(err, u) {
+                if (err)
+                    throw err;
 
-            user.id = uuid.v4();
+                if (u)
+                    return false;
 
-            this.users.push(user);
-            return user;
+                var _user = new User(user);
+                _user.save(function(err) {
+                    if (err)
+                        throw err;
+
+                    self.users = self.getUsers();
+                });
+            });
+
+            return true;
         };
 
-        UsersService.prototype.getSingleUser = function getSingleUser(userId) {
-            var user = this.users.filter(function (p) {
-                return p.id === userId;
+        UsersService.prototype.getSingleUser = function getSingleUser(username) {
+            return this.users.filter(function(user) {
+                return user.username === username;
             })[0];
-
-            return user || null;
         };
 
-        UsersService.prototype.getUserByEmail = function getUserByEmail(email) {
-            var user = this.users.filter(function (p) {
-                return p.email === email;
-            })[0];
+        UsersService.prototype.updateUser = function updateUser(username, data) {
+            User.update({username: username}, data, null, function(err, user) {
+                if (err)
+                    throw err;
 
-            return user || null;
-        };
-
-        UsersService.prototype.updateUser = function updateUser(userId, data) {
-            var user = this.getSingleUser(userId);
-            if (user) {
-                user.name = data.name ? data.name : user.name;
-                user.email = data.email ? data.email : user.email;
-
-                return user;
-            }
-            return false;
+                user.username = data.username;
+                user.email = data.email;
+            });
+            
+            return true;
         };
 
         return UsersService;

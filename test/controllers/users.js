@@ -5,6 +5,7 @@ var UsersController = require('../../controllers/users');
 var usersController = new UsersController(restRouter);
 var httpMocks = require('node-mocks-http');
 var should = require('should');
+var User = require('../../models/user');
 
 function getResponse() {
 	return httpMocks.createResponse({eventEmitter: require('events').EventEmitter});
@@ -33,28 +34,33 @@ describe('UsersController', function() {
 describe('UsersController', function() {
 	before(function() {
 		// add test data
-		var data = {name: 'khal', email: 'khal.rahman@gmail.com'};
-		return UsersService.addUser(data);
+		var userInfo = {username: 'test', email: 'test@gmail.com'};
+		var _user = new User(userInfo);
+		_user.save(function(err) {
+			if (err)
+				throw err;
+
+		});
+		
 	});
 	describe('#getSingleUser(req, res)', function() {
-		it('should return user by id', function(done) {
+		it('should return user by username', function(done) {
 
 			// newly added user
-			var user = UsersService.getUsers()[0];
-
 			var res = getResponse();
 			var req = httpMocks.createRequest({
 				method: 'GET',
-				url: '/api/users/' + user.id,
+				url: '/api/users/test',
 				params: {
-					id: user.id
+					username: 'test'
 				}
 			});
 
 			res.on('end', function() {
 				var data = res._getData();
-				data.name.should.equal('khal');
-				data.email.should.equal('khal.rahman@gmail.com');
+				console.log(data);
+				data.username.should.equal('test');
+				data.email.should.equal('test@gmail.com');
 
 				done();
 			});
@@ -74,7 +80,7 @@ describe('UsersController', function() {
 				method: 'GET',
 				url: '/api/users/' + 'blah',
 				params: {
-					id: 'blah'
+					username: 'blah'
 				}
 			});
 
@@ -98,8 +104,8 @@ describe('UsersController', function() {
 			var req = httpMocks.createRequest({
 				method: 'POST',
 				url: '/api/users',
-				data: {
-					name: 'khal',
+				body: {
+					username: 'khal',
 					email: 'khal.rahman@gmail.com'
 				}
 			});
@@ -107,7 +113,7 @@ describe('UsersController', function() {
 			res.on('end', function() {
 				var user = UsersService.getUsers()[0];
 				res.statusCode.should.equal(200);
-				user.name.should.equal('khal');
+				user.username.should.equal('khal');
 				user.email.should.equal('khal.rahman@gmail.com');
 
 				done();
@@ -121,7 +127,7 @@ describe('UsersController', function() {
 describe('UsersController', function() {
 	before(function() {
 		// add test data
-		var data = {name: 'khal', email: 'khal.rahman@gmail.com'};
+		var data = {username: 'khal', email: 'khal.rahman@gmail.com'};
 		return UsersService.addUser(data);
 	});
 	describe('#putUser(req, res)', function() {
@@ -131,12 +137,12 @@ describe('UsersController', function() {
 			var res = getResponse();
 			var req = httpMocks.createRequest({
 				method: 'PUT',
-				url: '/api/users/' + user.id,
+				url: '/api/users/' + user.username,
 				params: {
-					id: user.id
+					username: user.username
 				},
 				body: {
-					name: 'nevda',
+					username: 'nevda',
 					email: 'nevdanya@gmail.com'
 				}
 			});
@@ -144,7 +150,7 @@ describe('UsersController', function() {
 			res.on('end', function() {
 				var user = UsersService.getUsers()[0];
 				res.statusCode.should.equal(204);
-				user.name.should.equal('nevda');
+				user.username.should.equal('nevda');
 				user.email.should.equal('nevdanya@gmail.com');
 
 				done();
@@ -165,10 +171,10 @@ describe('UsersController', function() {
 				method: 'PUT',
 				url: '/api/users/' + 'blah',
 				params: {
-					id: 'blah'
+					username: 'blah'
 				},
 				body: {
-					name: 'nevda',
+					username: 'nevda',
 					email: 'nevdanya@gmail.com'
 				}
 			});
@@ -176,7 +182,7 @@ describe('UsersController', function() {
 			res.on('end', function() {
 				var user = UsersService.getUsers()[0];
 				res.statusCode.should.equal(201);
-				user.name.should.equal('nevda');
+				user.username.should.equal('nevda');
 				user.email.should.equal('nevdanya@gmail.com');
 
 				done();

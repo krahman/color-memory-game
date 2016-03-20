@@ -2,6 +2,7 @@
     'use strict';
 
     var UsersService = require('../services/users');
+    var User = require('../models/user');
 
     var UsersController = function () {
         function UsersController(router) {
@@ -11,56 +12,75 @@
 
         UsersController.prototype.registerRoutes = function registerRoutes() {
             this.router.get('/users', this.getUsers.bind(this));
-            this.router.get('/users/:id', this.getSingleUser.bind(this));
+            this.router.get('/users/:username', this.getSingleUser.bind(this));
             this.router.post('/users', this.postUser.bind(this));
-            this.router.put('/users/:id', this.putUser.bind(this));
+            this.router.put('/users/:username', this.putUser.bind(this));
         };
 
         UsersController.prototype.getUsers = function getUsers(req, res) {
-            var users = UsersService.getUsers();
-            res.send(users);
+            User.find({}, function(err, users) {
+                if (err) {
+                    res.sendStatus(500);
+                } else {
+                    res.send(users);
+                }
+            });
         };
 
         UsersController.prototype.getSingleUser = function getSingleUser(req, res) {
-            var id = req.params.id;
-            var user = UsersService.getSingleUser(id);
+            var username = req.params.username;
 
-            if (!user) {
-                res.sendStatus(404);
-            } else {
-                res.send(user);
-            }
+            User.findOne({username: username}, function(err, _user) {
+                if (err) {
+                    res.sendStatus(500);
+                } else if (!_user) {
+                    res.sendStatus(404);
+                } else {
+                    res.send(_user);
+                }
+            });
         };
 
         UsersController.prototype.putUser = function putUser(req, res) {
-            var id = req.params.id;
-            var existingUser = UsersService.getSingleUser(id);
+            var username = req.params.username;
+            var userInfo = req.body;
 
-            if (!existingUser) {
-                if (UsersService.addUser(req.body)) {
-                    res.setHeader('Location', '/users/' + id);
-                    res.sendStatus(201);
-                } else {
+            User.findOne({username: username}, function(err, _user) {
+                if (err) {
                     res.sendStatus(500);
-                }
-            } else {
-                if (UsersService.updateUser(id, req.body)) {
-                    res.sendStatus(204);
-                } else {
+                } else if (!_user) {
                     res.sendStatus(404);
+                } else {
+                    _user.username = userInfo.username;
+                    _user.email = userInfo.email;
+                    _user.save();
+
+                    res.sendStatus(200);
                 }
-            }
+            });
         };
 
         UsersController.prototype.postUser = function postUser(req, res) {
             var userInfo = req.body;
 
-            if (UsersService.addUser(userInfo)) {
-                res.setHeader('Location', '/users/' + userInfo.id);
-                res.sendStatus(200);
-            } else {
-                res.sendStatus(500);
-            }
+            User.findOne({username: userInfo.username}, function(err, _user) {
+                if (err) {
+                    res.sendStatus(500);
+                } else if (!_user) {
+                    var user = new User(userInfo);
+
+                    user.save(function(err) {
+                        if (err) {
+                            res.sendStatus(500);
+                        } else {
+                            res.sendStatus(200);
+                        }
+                    });
+
+                } else {
+                    res.sendStatus(409);
+                }
+            });
         };
 
         return UsersController;
