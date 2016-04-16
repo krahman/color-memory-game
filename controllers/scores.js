@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     var Score = require('../models/score');
@@ -18,7 +18,7 @@
         };
 
         ScoresController.prototype.getScores = function getScores(req, res) {
-            Score.find({}, function(err, scores) {
+            Score.find({}, function (err, scores) {
                 if (err) {
                     res.sendStatus(500);
                 } else {
@@ -30,7 +30,7 @@
         ScoresController.prototype.geMytScores = function getMyScores(req, res) {
             var username = req.params.username;
 
-            Score.find({username: username}, function(err, scores) {
+            Score.find({username: username}, function (err, scores) {
                 if (err) {
                     res.sendStatus(500);
                 } else {
@@ -42,7 +42,7 @@
         ScoresController.prototype.myBestScore = function myBestScore(req, res) {
             var username = req.params.username;
 
-            Score.find({username: username}, function(err, scores) {
+            Score.find({username: username}, function (err, scores) {
                 if (err) {
                     res.sendStatus(500);
                 } else {
@@ -54,15 +54,15 @@
         ScoresController.prototype.submitScore = function submitScore(req, res) {
             var scoreInfo = req.body;
             var score = new Score(scoreInfo);
-            
-            User.findOne({username: scoreInfo.username}, function(err, user) {
+
+            User.findOne({username: scoreInfo.username}, function (err, user) {
                 if (err) {
                     res.sendStatus(500);
                 } else {
                     if (!user) {
                         res.sendStatus(404);
                     } else {
-                        score.save(function(err) {
+                        score.save(function (err) {
                             if (err) {
                                 res.sendStatus(500);
                             } else {
@@ -78,5 +78,5 @@
     }();
 
     module.exports = ScoresController;
-    
+
 })();

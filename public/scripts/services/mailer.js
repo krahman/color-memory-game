@@ -1,16 +1,16 @@
-(function() {
-	'use strict';
+(function () {
+    'use strict';
 
-	angular.module('services')
-		.factory('mailerService', mailerService);
+    angular.module('services')
+        .factory('mailerService', mailerService);
 
-	mailerService.$inject = ['Restangular'];
+    mailerService.$inject = ['Restangular'];
 
-	function mailerService(Restangular) {
-		return {
-			emailTo: function(email) {
+    function mailerService(Restangular) {
+        return {
+            emailTo: function (email) {
 
-			}
-		};
-	}
+            }
+        };
+    }
 })();

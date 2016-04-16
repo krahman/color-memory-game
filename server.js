@@ -10,7 +10,7 @@ var app = express();
 
 app.use(morgan('combined', {stream: accesslogStream}));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use('/api', restRouter);
 app.use(express.static(__dirname + '/public'));
 app.use('/bower_components', express.static(__dirname + '/bower_components'));
@@ -22,17 +22,17 @@ var usersController = new UsersController(restRouter);
 var ScoresController = require('./controllers/scores');
 var scoresController = new ScoresController(restRouter);
 
-app.use(function(err, req, res, next) {
-	return res.sendStatus(500);
+app.use(function (err, req, res, next) {
+    return res.sendStatus(500);
 });
 
 // App listener
-var server = app.listen(8080, function() {
-	var host = server.address().address,
-		port = server.address().port;
+var server = app.listen(8080, function () {
+    var host = server.address().address,
+        port = server.address().port;
 
-	host = (host === '::' ? 'localhost' : host);
-	console.log('listening at http://%s:%s', host, port);
+    host = (host === '::' ? 'localhost' : host);
+    console.log('listening at http://%s:%s', host, port);
 });
 
 // Connection to mongodb
@@ -41,6 +41,6 @@ mongoose.connect("mongodb://localhost/ColorMemoryApp");
 // Database listener
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-	console.log('Connected to mongodb');
+db.once('open', function () {
+    console.log('Connected to mongodb');
 });

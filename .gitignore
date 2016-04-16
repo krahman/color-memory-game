@@ -6,3 +6,6 @@ node_modules
 
 # Ignore bower components
 bower_components
+
+# Ignore idea folder
+.idea

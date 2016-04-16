@@ -1,14 +1,14 @@
-(function() {
-	'use strict';
+(function () {
+    'use strict';
 
-	angular.module('services')
-		.factory('scoresServices', scoresServices);
+    angular.module('services')
+        .factory('scoresServices', scoresServices);
 
-	scoresServices.$inject = ['Restangular'];
+    scoresServices.$inject = ['Restangular'];
 
-	function scoresServices (Restangular) {
-		var service = Restangular.service('scores');
-		
-		return service;
-	}
+    function scoresServices(Restangular) {
+        var service = Restangular.service('scores');
+
+        return service;
+    }
 })();

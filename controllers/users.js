@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     var User = require('../models/user');
@@ -17,7 +17,7 @@
         };
 
         UsersController.prototype.getUsers = function getUsers(req, res) {
-            User.find({}, function(err, users) {
+            User.find({}, function (err, users) {
                 if (err) {
                     res.sendStatus(500);
                 } else {
@@ -29,7 +29,7 @@
         UsersController.prototype.getSingleUser = function getSingleUser(req, res) {
             var username = req.params.username;
 
-            User.findOne({username: username}, function(err, _user) {
+            User.findOne({username: username}, function (err, _user) {
                 if (err) {
                     res.sendStatus(500);
                 } else if (!_user) {
@@ -44,7 +44,7 @@
             var username = req.params.username;
             var userInfo = req.body;
 
-            User.findOne({username: username}, function(err, _user) {
+            User.findOne({username: username}, function (err, _user) {
                 if (err) {
                     res.sendStatus(500);
                 } else if (!_user) {
@@ -62,13 +62,13 @@
         UsersController.prototype.postUser = function postUser(req, res) {
             var userInfo = req.body;
 
-            User.findOne({username: userInfo.username}, function(err, _user) {
+            User.findOne({username: userInfo.username}, function (err, _user) {
                 if (err) {
                     res.sendStatus(500);
                 } else if (!_user) {
                     var user = new User(userInfo);
 
-                    user.save(function(err) {
+                    user.save(function (err) {
                         if (err) {
                             res.sendStatus(500);
                         } else {

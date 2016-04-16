@@ -1,38 +1,38 @@
-(function() {
-	'use strict';
+(function () {
+    'use strict';
 
-	angular
-		.module('contollers')
-		.controller('UsersCtrl', UsersCtrl);
+    angular
+        .module('contollers')
+        .controller('UsersCtrl', UsersCtrl);
 
-	UsersCtrl.$inject = ['$scope', 'usersServices'];
+    UsersCtrl.$inject = ['$scope', 'usersServices'];
 
-	function UsersCtrl($scope, usersServices) {
-		
-		$scope.users = [];
+    function UsersCtrl($scope, usersServices) {
 
-		$scope.getUsers = function() {
-			console.log('test');
-			usersServices
-				.getList()
-				.then(function(users) {
-					$scope.users = users;
-				});
-		};
+        $scope.users = [];
 
-		$scope.getSingleUser = function(username) {
+        $scope.getUsers = function () {
+            console.log('test');
+            usersServices
+                .getList()
+                .then(function (users) {
+                    $scope.users = users;
+                });
+        };
 
-		};
+        $scope.getSingleUser = function (username) {
 
-		$scope.addUser = function(userInfo) {
+        };
 
-		};
+        $scope.addUser = function (userInfo) {
 
-		$scope.updateUser = function(username, userInfo) {
+        };
 
-		};
+        $scope.updateUser = function (username, userInfo) {
+
+        };
 
 
-	}
+    }
 
 })();

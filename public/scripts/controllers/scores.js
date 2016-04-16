@@ -1,35 +1,35 @@
-(function() {
-	'use strict';
+(function () {
+    'use strict';
 
-	angular
-		.module('contollers')
-		.controller('ScoresCtrl', ScoresCtrl);
+    angular
+        .module('contollers')
+        .controller('ScoresCtrl', ScoresCtrl);
 
-	ScoresCtrl.$inject = ['$scope', 'scoresServices'];
+    ScoresCtrl.$inject = ['$scope', 'scoresServices'];
 
-	function ScoresCtrl($scope, scoresServices) {
-		
-		$scope.scores = [];
+    function ScoresCtrl($scope, scoresServices) {
 
-		$scope.getScores = function() {
-			scoresServices
-				.getList()
-				.then(function(scores) {
-					$scope.scores = scores;
-				});
-		};
+        $scope.scores = [];
 
-		$scope.getMyScores = function(username) {
+        $scope.getScores = function () {
+            scoresServices
+                .getList()
+                .then(function (scores) {
+                    $scope.scores = scores;
+                });
+        };
 
-		};
+        $scope.getMyScores = function (username) {
 
-		$scope.getMyBestScores = function(username) {
+        };
 
-		};
+        $scope.getMyBestScores = function (username) {
 
-		$scope.submitScore = function(username, score) {
+        };
 
-		};
-	}
+        $scope.submitScore = function (username, score) {
+
+        };
+    }
 
 })();
